@@ -22,15 +22,21 @@ Peripheral_Descriptor_t gpio;
 
 int main(void)
 {
-   DRIVER_LoadAll();
+    GPIO_InitTypeDef gpioConf;
+    DRIVER_LoadAll();
 
-   uint16_t val16;
+    uint16_t val16;
 
-   gpio = DRIVER_open("GPIO",0);
+    gpio = DRIVER_open("GPIOD",0);
 
-   FreeRTOS_ioctl(gpio,GPIOA,0x111111);
+    gpioConf.Pin = GPIO_PIN_15;
+    gpioConf.Mode = GPIO_MODE_OUTPUT_PP ;
+    gpioConf.Pull = GPIO_NOPULL;
 
-   FreeRTOS_write(gpio,val16,sizeof(val16));
 
-   return 0;
+    FreeRTOS_ioctl(gpio,GPIO_SET_CONFIG,&gpioConf);
+
+    FreeRTOS_ioctl(gpio,GPIO_SET_PIN,GPIO_PIN_9);
+
+    return 0;
 }

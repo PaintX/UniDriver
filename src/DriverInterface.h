@@ -22,7 +22,7 @@
 
 
 #include "gpio_DriverInterface.h"
-
+#include "clock_DriverInterface.h"
 
 //-----------------------------------------------------------------------------
 // Constantes : defines et enums
@@ -31,23 +31,13 @@
 
 
 
-
-
-/* The peripherals the IO library can interface to. */
-typedef enum
-{
-	eUART_TYPE = 0,
-	eSSP_TYPE,
-	eI2C_TYPE
-} Peripheral_Types_t;
-
 /* The structure that defines the peripherals that are available for use on
 any particular supported board. */
 typedef struct xAVAILABLE_DEVICES
 {
 	char * pcPath;				        /* Text name of the peripheral.  For example, "/UART0/", or "/SPI2/". */
 	//Peripheral_Types_t xPeripheralType;	    /* The type of the peripheral, as defined by the Peripheral_Types_t enum. */
-	//Peripheral_Control_t *pvBaseAddress;					/* The base address of the peripheral in the microcontroller memory map. */
+	void *pvBaseAddress;					/* The base address of the peripheral in the microcontroller memory map. */
 } Available_Peripherals_t;
 
 
@@ -76,7 +66,7 @@ typedef struct xPERIPHREAL_CONTROL
 	Peripheral_ioctl_Function_t ioctl;			/* The function used for ioctl access to the peripheral. */
 	Transfer_Control_t *pxTxControl;			/* Pointer to the transfer control structure used to manage transmissions through the peripheral. */
 	Transfer_Control_t *pxRxControl;			/* Pointer to the transfer control structure used to manage receptions from the peripheral. */
-	Available_Peripherals_t pxDevice;	/* Pointer to the structure that defines the name and base address of the open peripheral. */
+	Available_Peripherals_t pxDevice;	        /* Pointer to the structure that defines the name and base address of the open peripheral. */
 	int8_t cPeripheralNumber;					/* Where more than one peripheral of the same kind is available, this holds the number of the peripheral this structure is used to control. */
 } Peripheral_Control_t;
 
@@ -140,9 +130,9 @@ Peripheral_Descriptor_t FreeRTOS_open( const int8_t *pcPath, const uint32_t ulFl
  * Macros for the functions that are really macros to keep the call depth down
  * and the efficiency up.
  */
-#define FreeRTOS_write( xPeripheral, pvBuffer, xBytes ) ( ( Peripheral_Control_t * ) xPeripheral )->write( ( ( Peripheral_Control_t * ) xPeripheral ), ( pvBuffer ), ( xBytes ) )
+#define FreeRTOS_write( xPeripheral, pvBuffer, xBytes ) ( ( Peripheral_Control_t * ) xPeripheral )->write( ( ( Peripheral_Control_t * ) xPeripheral ), (void * const) ( pvBuffer ), ( xBytes ) )
 #define FreeRTOS_read( xPeripheral, pvBuffer, xBytes ) ( ( Peripheral_Control_t * ) xPeripheral )->read( ( ( Peripheral_Control_t * ) xPeripheral ), ( pvBuffer ), ( xBytes ) )
-#define FreeRTOS_ioctl( xPeripheral, ulRequest, pvValue ) ( ( Peripheral_Control_t * ) xPeripheral )->ioctl( ( ( Peripheral_Control_t * ) xPeripheral ), ( ulRequest ), ( pvValue ) )
+#define FreeRTOS_ioctl( xPeripheral, ulRequest, pvValue ) ( ( Peripheral_Control_t * ) xPeripheral )->ioctl( ( ( Peripheral_Control_t * ) xPeripheral ), (uint32_t)( ulRequest ), (void *)( pvValue ) )
 
 
 //-----------------------------------------------------------------------------

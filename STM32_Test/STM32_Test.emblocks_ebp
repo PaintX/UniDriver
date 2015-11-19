@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
-<EmBitz_project_file>
-	<EmBitzVersion release="0.42" revision="0" />
+<EmBlocks_project_file>
+	<EmBlocksVersion release="2.30" revision="1" />
 	<FileVersion major="1" minor="0" />
 	<Project>
 		<Option title="STM32_Test" />
@@ -71,26 +71,6 @@
 			<Add option="-eb_start_files" />
 			<Add option="-eb_lib=n" />
 		</Linker>
-		<Unit filename="..\src\clock\clock_DriverInterface.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="..\src\clock\clock_DriverInterface.h" />
-		<Unit filename="..\src\clock\STM32F407\clock.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="..\src\clock\STM32F407\clock.h" />
-		<Unit filename="..\src\DriverInterface.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="..\src\DriverInterface.h" />
-		<Unit filename="..\src\gpio\gpio_DriverInterface.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="..\src\gpio\gpio_DriverInterface.h" />
-		<Unit filename="..\src\gpio\STM32F407\gpio.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="..\src\gpio\STM32F407\gpio.h" />
 		<Unit filename="inc\stm32f4xx.h" />
 		<Unit filename="inc\stm32f4xx_conf.h" />
 		<Unit filename="inc\system_stm32f4xx.h" />
@@ -103,6 +83,18 @@
 		<Unit filename="src\system_stm32f4xx.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="..\src\DriverInterface.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\src\DriverInterface.h" />
+		<Unit filename="..\src\gpio\STM32F407\gpio.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\src\gpio\STM32F407\gpio.h" />
+		<Unit filename="..\src\gpio\gpio_DriverInterface.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\src\gpio\gpio_DriverInterface.h" />
 		<Extensions>
 			<code_completion />
 			<debugger>
@@ -144,4 +136,4 @@
 			<envvars />
 		</Extensions>
 	</Project>
-</EmBitz_project_file>
+</EmBlocks_project_file>

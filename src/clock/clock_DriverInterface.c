@@ -36,7 +36,6 @@
  */
 #include "DriverInterface.h"
 
-#include "gpio.h"
 
 static size_t _Write( Peripheral_Descriptor_t const pxPeripheral, const void *pvBuffer, const size_t xBytes )
 {
@@ -50,42 +49,22 @@ static size_t _Read( Peripheral_Descriptor_t const pxPeripheral, void * const pv
 
 static int _Ioctl( Peripheral_Descriptor_t const pxPeripheral, uint32_t ulRequest, void *pvValue )
 {
-
-
-    Peripheral_Control_t * p = pxPeripheral;
-
-    GPIO_TypeDef * GPIOx = (GPIO_TypeDef*)p->pxDevice.pvBaseAddress;
-
-    switch ( ulRequest )
-    {
-        case ( GPIO_SET_CONFIG ):
-        {
-            GPIO_InitTypeDef *GPIO_Init = (GPIO_InitTypeDef *)pvValue;
-            HAL_GPIO_Init(GPIOx,GPIO_Init);
-            break;
-        }
-        case ( GPIO_SET_PIN ):
-        {
-            uint16_t pin = pvValue;
-            HAL_GPIO_WritePin(GPIOx,pin,true);
-            break;
-        }
-    }
-
+    bool * val = (bool *)pvValue;
+    HAL_CLOCK_Config(ulRequest,val);
     return 0;
 }
 
-void GPIO_LoadDriver(void)
+void CLOCK_LoadDriver(void)
 {
-    Peripheral_Control_t dev;
+   Peripheral_Control_t dev;
 
-    dev.pxDevice.pcPath = "GPIOD";
-    dev.pxDevice.pvBaseAddress = GPIOD;
-    dev.write = _Write;
-    dev.read = _Read;
-    dev.ioctl = _Ioctl;
+   dev.pxDevice.pcPath = "RCC";
 
-    DRIVER_Add(&dev);
+   dev.write = NULL;
+   dev.read = NULL;
+   dev.ioctl = _Ioctl;
+
+   DRIVER_Add(&dev);
 }
 
 

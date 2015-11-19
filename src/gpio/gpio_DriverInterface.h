@@ -39,6 +39,10 @@
 #define GPIO_DRIVER_INTERFACE_H
 #include "gpio.h"
 
+
+#define     GPIO_SET_CONFIG         (uint32_t)0x00000001
+#define     GPIO_SET_PIN            (uint32_t)0x00000002
+
 void GPIO_LoadDriver(void);
 
 #endif

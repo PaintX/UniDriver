@@ -50,6 +50,7 @@ bool    DRIVER_Add(Peripheral_Control_t * d)
         if ( xAvailablePeripherals[i].pxDevice.pcPath == NULL )
         {
             xAvailablePeripherals[i].pxDevice.pcPath = d->pxDevice.pcPath;
+            xAvailablePeripherals[i].pxDevice.pvBaseAddress = d->pxDevice.pvBaseAddress;
             xAvailablePeripherals[i].cPeripheralNumber = i;
             if ( d->write != NULL )
                xAvailablePeripherals[i].write = d->write;
@@ -85,6 +86,7 @@ void    DRIVER_LoadAll ( void )
     //-- chargement des drivers inclu dans le bootloader
 
     //-- chargement des drivers de l'application
+    CLOCK_LoadDriver();
     GPIO_LoadDriver();
 }
 
