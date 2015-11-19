@@ -1,10 +1,10 @@
 # depslib dependency file v1.0
-1447933095 source:c:\_kimo_\unidriver\stm32_test\src\startup_stm32f4xx.s
+1447948411 source:c:\_kimo_\unidriver\stm32_test\src\startup_stm32f4xx.s
 
-1447933095 source:c:\_kimo_\unidriver\stm32_test\src\system_stm32f4xx.c
+1447948560 source:c:\_kimo_\unidriver\stm32_test\src\system_stm32f4xx.c
 	"stm32f4xx.h"
 
-1447933095 c:\_kimo_\unidriver\stm32_test\inc\stm32f4xx.h
+1447948411 c:\_kimo_\unidriver\stm32_test\inc\stm32f4xx.h
 	"core_cm4.h"
 	"system_stm32f4xx.h"
 	<stdint.h>
@@ -25,10 +25,9 @@
 1447933095 c:\_kimo_\unidriver\stm32_test\cmsis\core_cm4_simd.h
 	<cmsis_iar.h>
 
-1447933095 c:\_kimo_\unidriver\stm32_test\inc\system_stm32f4xx.h
+1447948411 c:\_kimo_\unidriver\stm32_test\inc\system_stm32f4xx.h
 
-1447933095 c:\_kimo_\unidriver\stm32_test\inc\stm32f4xx_conf.h
-	"stm32f4xx_adc.h"
+1447948582 c:\_kimo_\unidriver\stm32_test\inc\stm32f4xx_conf.h
 	"stm32f4xx_can.h"
 	"stm32f4xx_crc.h"
 	"stm32f4xx_cryp.h"
@@ -53,7 +52,6 @@
 	"stm32f4xx_tim.h"
 	"stm32f4xx_usart.h"
 	"stm32f4xx_wwdg.h"
-	"misc.h"
 
 1447933095 c:\_kimo_\unidriver\stm32_test\spl\inc\stm32f4xx_adc.h
 	"stm32f4xx.h"
@@ -133,17 +131,43 @@
 1447933095 c:\_kimo_\unidriver\stm32_test\spl\inc\misc.h
 	"stm32f4xx.h"
 
-1447935736 source:c:\_kimo_\unidriver\src\freertos_driverinterface.c
+1447938306 source:c:\_kimo_\unidriver\src\freertos_driverinterface.c
 	"FreeRTOS_DriverInterface.h"
 
-1447933436 c:\_kimo_\unidriver\src\freertos_driverinterface.h
+1447938306 c:\_kimo_\unidriver\src\freertos_driverinterface.h
 	<stdlib.h>
 	<stddef.h>
 	<stdint.h>
 	<string.h>
 	<stdbool.h>
+	"gpio_DriverInterface.h"
 
-1447935793 source:c:\_kimo_\unidriver\stm32_test\src\main.c
-	"stm32f4xx_conf.h"
-	"FreeRTOS_DriverInterface.h"
+1447947511 source:c:\_kimo_\unidriver\stm32_test\src\main.c
+	"DriverInterface.h"
+
+1447950119 c:\_kimo_\unidriver\src\gpio\gpio_driverinterface.h
+
+1447950158 source:c:\_kimo_\unidriver\src\gpio\gpio_driverinterface.c
+	"DriverInterface.h"
+
+1447946187 source:c:\_kimo_\unidriver\src\gpio\stm32f4xx\stm32f4xx_hal_gpio.c
+	"stm32f4xx_hal_gpio.h"
+
+1447946164 c:\_kimo_\unidriver\src\gpio\stm32f4xx\stm32f4xx_hal_gpio.h
+
+1447950438 source:c:\_kimo_\unidriver\src\driverinterface.c
+	"DriverInterface.h"
+
+1447950092 c:\_kimo_\unidriver\src\driverinterface.h
+	<stdlib.h>
+	<stddef.h>
+	<stdint.h>
+	<string.h>
+	<stdbool.h>
+	"gpio_DriverInterface.h"
+
+1447949851 source:c:\_kimo_\unidriver\src\gpio\stm32f407\gpio.c
+	"gpio.h"
+
+1447949851 c:\_kimo_\unidriver\src\gpio\stm32f407\gpio.h
 

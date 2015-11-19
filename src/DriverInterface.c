@@ -1,53 +1,30 @@
-/*
- * FreeRTOS+IO V1.0.1 (C) 2012 Real Time Engineers ltd.
- *
- * FreeRTOS+IO is an add-on component to FreeRTOS.  It is not, in itself, part
- * of the FreeRTOS kernel.  FreeRTOS+IO is licensed separately from FreeRTOS,
- * and uses a different license to FreeRTOS.  FreeRTOS+IO uses a dual license
- * model, information on which is provided below:
- *
- * - Open source licensing -
- * FreeRTOS+IO is a free download and may be used, modified and distributed
- * without charge provided the user adheres to version two of the GNU General
- * Public license (GPL) and does not remove the copyright notice or this text.
- * The GPL V2 text is available on the gnu.org web site, and on the following
- * URL: http://www.FreeRTOS.org/gpl-2.0.txt
- *
- * - Commercial licensing -
- * Businesses and individuals who wish to incorporate FreeRTOS+IO into
- * proprietary software for redistribution in any form must first obtain a low
- * cost commercial license - and in-so-doing support the maintenance, support
- * and further development of the FreeRTOS+IO product.  Commercial licenses can
- * be obtained from http://shop.freertos.org and do not require any source files
- * to be changed.
- *
- * FreeRTOS+IO is distributed in the hope that it will be useful.  You cannot
- * use FreeRTOS+IO unless you agree that you use the software 'as is'.
- * FreeRTOS+IO is provided WITHOUT ANY WARRANTY; without even the implied
- * warranties of NON-INFRINGEMENT, MERCHANTABILITY or FITNESS FOR A PARTICULAR
- * PURPOSE. Real Time Engineers Ltd. disclaims all conditions and terms, be they
- * implied, expressed, or statutory.
- *
- * 1 tab == 4 spaces!
- *
- * http://www.FreeRTOS.org
- * http://www.FreeRTOS.org/FreeRTOS-Plus
- *
- */
-
-/* Standard includes. */
+///============================================================================
+//
+// PROJET       : PORTABLES 2014
+// MODULE       : Board.c
+// DESCRIPTION  : Configuration de la carte
+//
+//=============================================================================
 
 
-/* FreeRTOS includes. */
-//#include "FreeRTOS.h"
-//#include "task.h"
-//#include "semphr.h"
+//=============================================================================
+//--- DECLARATIONS
+//=============================================================================
 
-/* FreeRTOS IO library includes. */
-//#include "FreeRTOS_IO.h"
-//#include "IOUtils_Common.h"
-#include "FreeRTOS_DriverInterface.h"
-/*-----------------------------------------------------------*/
+//-----------------------------------------------------------------------------
+// Fichiers Inclus
+//-----------------------------------------------------------------------------
+#include "DriverInterface.h"
+
+//-----------------------------------------------------------------------------
+// Constantes : defines et enums
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Variables et Fonctions Privees
+//-----------------------------------------------------------------------------
+
+
 
 /* Holds the list of peripherals that are available to the FreeRTOS+IO
 interface.  boardAVAILABLE_DEVICED_LIST is defined in FreeRTOS_IO_BSP.h, and is
@@ -55,8 +32,15 @@ specific to a hardware platform. */
 static int xNumberOfPeripherals;
 static Peripheral_Control_t xAvailablePeripherals[MAX_DRIVER_SUPPORTED];
 
-/*-----------------------------------------------------------*/
+//=============================================================================
+//--- DEFINITIONS
+//=============================================================================
 
+//-----------------------------------------------------------------------------
+// FONCTION    :  DRIVER_Add
+//
+// DESCRIPTION :
+//-----------------------------------------------------------------------------
 bool    DRIVER_Add(Peripheral_Control_t * d)
 {
     bool ret = false;
@@ -66,9 +50,13 @@ bool    DRIVER_Add(Peripheral_Control_t * d)
         if ( xAvailablePeripherals[i].pxDevice.pcPath == NULL )
         {
             xAvailablePeripherals[i].pxDevice.pcPath = d->pxDevice.pcPath;
-            xAvailablePeripherals[i].cPeripheralNumber = d->cPeripheralNumber;
+            xAvailablePeripherals[i].cPeripheralNumber = i;
             if ( d->write != NULL )
                xAvailablePeripherals[i].write = d->write;
+            if ( d->read != NULL )
+               xAvailablePeripherals[i].read = d->read;
+            if ( d->ioctl != NULL )
+               xAvailablePeripherals[i].ioctl = d->ioctl;
 
             xNumberOfPeripherals++;
             ret = true;
@@ -78,6 +66,11 @@ bool    DRIVER_Add(Peripheral_Control_t * d)
     return ret;
 }
 
+//-----------------------------------------------------------------------------
+// FONCTION    :  DRIVER_LoadAll
+//
+// DESCRIPTION :
+//-----------------------------------------------------------------------------
 void    DRIVER_LoadAll ( void )
 {
     int i;
@@ -92,135 +85,28 @@ void    DRIVER_LoadAll ( void )
     //-- chargement des drivers inclu dans le bootloader
 
     //-- chargement des drivers de l'application
+    GPIO_LoadDriver();
 }
 
 /* See the function prototype definition for documentation information. */
 Peripheral_Descriptor_t DRIVER_open( const char *pcPath, const uint32_t ulFlags )
 {
-    int xIndex;
-   // int8_t cPeripheralNumber;
-    Peripheral_Control_t *pxPeripheralControl = NULL;
+   int xIndex;
 
-		/* pcPath was a valid path.  Extract the peripheral number.  The
-		peripheral number cannot appear in the middle of a string, so must be
-		followed by the end of string character. */
-		/*while( ( ( *( pcPath + 1 ) ) != '/' ) && ( ( *( pcPath + 1 ) ) != 0x00 ) )
-		{
-			pcPath++;
-			while( ( *pcPath < '0' ) || ( *pcPath > '9' ) )
-			{
-				pcPath++;
-			}
-		}*/
-		        /* Convert the number from its ASCII representation. */
-		//cPeripheralNumber = *pcPath - '0';
+   Peripheral_Control_t *pxPeripheralControl = NULL;
 
 
-    for( xIndex = 0; xIndex < xNumberOfPeripherals; xIndex++ )
-    {
-        if( strcmp( ( const char * const ) pcPath, ( const char * const ) xAvailablePeripherals[ xIndex ].pxDevice.pcPath ) == 0 )
-        {
-            /* pcPath is a valid path, search no further. */
-            //if ( xAvailablePeripherals[xIndex].cPeripheralNumber == cPeripheralNumber )
-            {
-               pxPeripheralControl = &xAvailablePeripherals[ xIndex ];
-               break;
-            }
+   for( xIndex = 0; xIndex < xNumberOfPeripherals; xIndex++ )
+   {
+      if( strcmp( ( const char * const ) pcPath, ( const char * const ) xAvailablePeripherals[ xIndex ].pxDevice.pcPath ) == 0 )
+      {
+         /* pcPath is a valid path, search no further. */
+         pxPeripheralControl = &xAvailablePeripherals[ xIndex ];
+         break;
+      }
+   }
 
-        }
-    }
-#if 0
-    if( xIndex < xNumberOfPeripherals )
-    {
-		/* pcPath was a valid path.  Extract the peripheral number.  The
-		peripheral number cannot appear in the middle of a string, so must be
-		followed by the end of string character. */
-		while( ( ( *( pcPath + 1 ) ) != '/' ) && ( ( *( pcPath + 1 ) ) != 0x00 ) )
-		{
-			pcPath++;
-			while( ( *pcPath < '0' ) || ( *pcPath > '9' ) )
-			{
-				pcPath++;
-			}
-		}
-
-        /* Convert the number from its ASCII representation. */
-		cPeripheralNumber = *pcPath - '0';
-
-        /* Create the peripheral control structure used by FreeRTOS+IO to
-		access the peripheral.  This is also used as the handle to the
-		peripheral. */
-
-
-
-
-    }
-    #endif
-
-    #if 0
-portBASE_TYPE xIndex, xInitialiseResult;
-const portBASE_TYPE xNumberOfPeripherals = sizeof( xAvailablePeripherals ) / sizeof( Available_Peripherals_t );
-int8_t cPeripheralNumber;
-Peripheral_Control_t *pxPeripheralControl = NULL;
-
-	/* The flags exist to maintain a standard looking interface, but are not
-	(yet) used. */
-	( void ) ulFlags;
-
-	/* Search for the peripheral in the list of peripherals for the board being
-	used. */
-	for( xIndex = 0; xIndex < xNumberOfPeripherals; xIndex++ )
-	{
-		if( strcmp( ( const char * const ) pcPath, ( const char * const ) xAvailablePeripherals[ xIndex ].pcPath ) == 0 )
-		{
-			/* pcPath is a valid path, search no further. */
-			break;
-		}
-	}
-
-	if( xIndex < xNumberOfPeripherals )
-	{
-		/* pcPath was a valid path.  Extract the peripheral number.  The
-		peripheral number cannot appear in the middle of a string, so must be
-		followed by the end of string character. */
-		while( ( ( *( pcPath + 1 ) ) != '/' ) && ( ( *( pcPath + 1 ) ) != 0x00 ) )
-		{
-			pcPath++;
-			while( ( *pcPath < '0' ) || ( *pcPath > '9' ) )
-			{
-				pcPath++;
-			}
-		}
-
-		/* Convert the number from its ASCII representation. */
-		cPeripheralNumber = *pcPath - '0';
-
-		/* Create the peripheral control structure used by FreeRTOS+IO to
-		access the peripheral.  This is also used as the handle to the
-		peripheral. */
-		pxPeripheralControl = pvPortMalloc( sizeof( Peripheral_Control_t ) );
-		if( pxPeripheralControl != NULL )
-		{
-			/* Initialise the common parts of the control structure. */
-			pxPeripheralControl->pxTxControl = NULL;
-			pxPeripheralControl->pxRxControl = NULL;
-			pxPeripheralControl->pxDevice = &( xAvailablePeripherals[ xIndex ] );
-			pxPeripheralControl->cPeripheralNumber = cPeripheralNumber;
-
-			/* Initialise the peripheral specific parts of the control
-			structure, and call the peripheral specific open function. */
-			xInitialiseResult = boardFreeRTOS_PopulateFunctionPointers( xAvailablePeripherals[ xIndex ].xPeripheralType, pxPeripheralControl );
-
-			if( xInitialiseResult != pdPASS )
-			{
-				/* Something went wrong.  Free up resources and return NULL. */
-				vPortFree( pxPeripheralControl );
-				pxPeripheralControl = NULL;
-			}
-		}
-	}
-#endif
-	return ( Peripheral_Descriptor_t ) pxPeripheralControl;
+   return ( Peripheral_Descriptor_t ) pxPeripheralControl;
 }
 /*-----------------------------------------------------------*/
 #if 0

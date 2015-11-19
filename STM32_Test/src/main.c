@@ -11,24 +11,10 @@
    ID:                 $Id:  $
 
 **********************************************************************/
-#include "stm32f4xx_conf.h"
-#include "FreeRTOS_DriverInterface.h"
+#include "DriverInterface.h"
 
-size_t GPIO_write( Peripheral_Descriptor_t const pxPeripheral, const void *pvBuffer, const size_t xBytes )
-{
 
-   return xBytes;
-}
 
-void GPIO_LoadDriver(void)
-{
-   Peripheral_Control_t dev;
-
-   dev.pxDevice.pcPath = "GPIO0";
-   dev.write = GPIO_write;
-
-   DRIVER_Add(&dev);
-}
 
 
 
@@ -38,9 +24,12 @@ int main(void)
 {
    DRIVER_LoadAll();
 
-   GPIO_LoadDriver();
+   uint16_t val16;
 
-   gpio = DRIVER_open("GPIO0",0);
+   gpio = DRIVER_open("GPIO",0);
+
+
+   FreeRTOS_write(gpio,val16,sizeof(val16));
 
    return 0;
 }
