@@ -37,6 +37,7 @@
 
 #ifndef GPIO_DRIVER_INTERFACE_H
 #define GPIO_DRIVER_INTERFACE_H
+#include "gpio.h"
 
 void GPIO_LoadDriver(void);
 

@@ -28,6 +28,7 @@ int main(void)
 
    gpio = DRIVER_open("GPIO",0);
 
+   FreeRTOS_ioctl(gpio,GPIOA,0x111111);
 
    FreeRTOS_write(gpio,val16,sizeof(val16));
 

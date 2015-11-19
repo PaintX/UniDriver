@@ -142,7 +142,7 @@ Peripheral_Descriptor_t FreeRTOS_open( const int8_t *pcPath, const uint32_t ulFl
  */
 #define FreeRTOS_write( xPeripheral, pvBuffer, xBytes ) ( ( Peripheral_Control_t * ) xPeripheral )->write( ( ( Peripheral_Control_t * ) xPeripheral ), ( pvBuffer ), ( xBytes ) )
 #define FreeRTOS_read( xPeripheral, pvBuffer, xBytes ) ( ( Peripheral_Control_t * ) xPeripheral )->read( ( ( Peripheral_Control_t * ) xPeripheral ), ( pvBuffer ), ( xBytes ) )
-
+#define FreeRTOS_ioctl( xPeripheral, ulRequest, pvValue ) ( ( Peripheral_Control_t * ) xPeripheral )->ioctl( ( ( Peripheral_Control_t * ) xPeripheral ), ( ulRequest ), ( pvValue ) )
 
 
 //-----------------------------------------------------------------------------
