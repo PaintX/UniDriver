@@ -1,0 +1,16 @@
+# depslib dependency file v1.0
+1447880364 source:c:\users\aurmy\documents\github\test\test_load_driver\main.c
+	<stdio.h>
+	<stdlib.h>
+	"FreeRTOS_DriverInterface.h"
+
+1447880234 c:\users\aurmy\documents\github\test\test_load_driver\src\freertos_driverinterface.h
+	<stdlib.h>
+	<stddef.h>
+	<stdint.h>
+	<string.h>
+	<stdbool.h>
+
+1447880321 source:c:\users\aurmy\documents\github\test\test_load_driver\src\freertos_driverinterface.c
+	"FreeRTOS_DriverInterface.h"
+

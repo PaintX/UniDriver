@@ -1,2 +1,2 @@
 # UniDriver
-Librairei de driver pour l'embarqué
+Libraire de driver pour l'embarqué
