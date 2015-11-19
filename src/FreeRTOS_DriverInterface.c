@@ -66,7 +66,10 @@ bool    DRIVER_Add(Peripheral_Control_t * d)
         if ( xAvailablePeripherals[i].pxDevice.pcPath == NULL )
         {
             xAvailablePeripherals[i].pxDevice.pcPath = d->pxDevice.pcPath;
-            xAvailablePeripherals[i].cPeripheralNumber = i;
+            xAvailablePeripherals[i].cPeripheralNumber = d->cPeripheralNumber;
+            if ( d->write != NULL )
+               xAvailablePeripherals[i].write = d->write;
+
             xNumberOfPeripherals++;
             ret = true;
             break;
@@ -95,18 +98,38 @@ void    DRIVER_LoadAll ( void )
 Peripheral_Descriptor_t DRIVER_open( const char *pcPath, const uint32_t ulFlags )
 {
     int xIndex;
-    int8_t cPeripheralNumber;
+   // int8_t cPeripheralNumber;
     Peripheral_Control_t *pxPeripheralControl = NULL;
+
+		/* pcPath was a valid path.  Extract the peripheral number.  The
+		peripheral number cannot appear in the middle of a string, so must be
+		followed by the end of string character. */
+		/*while( ( ( *( pcPath + 1 ) ) != '/' ) && ( ( *( pcPath + 1 ) ) != 0x00 ) )
+		{
+			pcPath++;
+			while( ( *pcPath < '0' ) || ( *pcPath > '9' ) )
+			{
+				pcPath++;
+			}
+		}*/
+		        /* Convert the number from its ASCII representation. */
+		//cPeripheralNumber = *pcPath - '0';
+
 
     for( xIndex = 0; xIndex < xNumberOfPeripherals; xIndex++ )
     {
         if( strcmp( ( const char * const ) pcPath, ( const char * const ) xAvailablePeripherals[ xIndex ].pxDevice.pcPath ) == 0 )
         {
             /* pcPath is a valid path, search no further. */
-            break;
+            //if ( xAvailablePeripherals[xIndex].cPeripheralNumber == cPeripheralNumber )
+            {
+               pxPeripheralControl = &xAvailablePeripherals[ xIndex ];
+               break;
+            }
+
         }
     }
-
+#if 0
     if( xIndex < xNumberOfPeripherals )
     {
 		/* pcPath was a valid path.  Extract the peripheral number.  The
@@ -132,6 +155,7 @@ Peripheral_Descriptor_t DRIVER_open( const char *pcPath, const uint32_t ulFlags 
 
 
     }
+    #endif
 
     #if 0
 portBASE_TYPE xIndex, xInitialiseResult;

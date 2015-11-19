@@ -81,14 +81,14 @@ typedef struct xTRANSFER_CONTROL
 typedef const void * Peripheral_Descriptor_t;
 
 /* Types that define valid read(), write() and ioctl() functions. */
-//typedef size_t ( *Peripheral_write_Function_t )( Peripheral_Descriptor_t const pxPeripheral, const void *pvBuffer, const size_t xBytes );
+typedef size_t ( *Peripheral_write_Function_t )( Peripheral_Descriptor_t const pxPeripheral, const void *pvBuffer, const size_t xBytes );
 //typedef size_t ( *Peripheral_read_Function_t )( Peripheral_Descriptor_t const pxPeripheral, void * const pvBuffer, const size_t xBytes );
 //typedef portBASE_TYPE ( *Peripheral_ioctl_Function_t )( Peripheral_Descriptor_t const pxPeripheral, uint32_t ulRequest, void *pvValue );
 
 /* Structure containing control information for an open peripheral. */
 typedef struct xPERIPHREAL_CONTROL
 {
-	//Peripheral_write_Function_t write;			/* The function used to write to the peripheral. */
+	Peripheral_write_Function_t write;			/* The function used to write to the peripheral. */
 	//Peripheral_read_Function_t read;			/* The function used to read from the peripheral. */
 	//Peripheral_ioctl_Function_t ioctl;			/* The function used for ioctl access to the peripheral. */
 	Transfer_Control_t *pxTxControl;			/* Pointer to the transfer control structure used to manage transmissions through the peripheral. */
