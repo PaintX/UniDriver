@@ -37,7 +37,8 @@ SEARCH_DIR(.)
 /* Memory Spaces Definitions */
 MEMORY
 {
-    ROM  (rx) : ORIGIN = 0x08020000, LENGTH = 1016K
+    ROM  (rx) : ORIGIN = 0x08000000, LENGTH = 0x0001F000
+    DRIVER(rx): ORIGIN = 0x0801F000, LENGTH = 4K
     RAM (rwx) : ORIGIN = 0x20000000, LENGTH = 128K
   CCRAM (rwx) : ORIGIN = 0x10000000, LENGTH = 64K
 }
@@ -98,6 +99,10 @@ SECTIONS
 
 		KEEP(*(.eh_frame*))
 	} > ROM
+
+  .DRIVER : {
+	*(.DRIVER*)
+  } > DRIVER
 
 	.ARM.extab :
 	{

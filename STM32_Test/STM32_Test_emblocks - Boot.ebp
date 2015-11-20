@@ -3,12 +3,12 @@
 	<EmBlocksVersion release="2.30" revision="1" />
 	<FileVersion major="1" minor="0" />
 	<Project>
-		<Option title="STM32_Test" />
+		<Option title="STM32_Test_Boot" />
 		<Option pch_mode="2" />
 		<Option compiler="armgcc_eb" />
 		<Build>
 			<Target title="Debug">
-				<Option output=".\_HEX_\Debug\STM32_Test.elf" />
+				<Option output=".\_HEX_\Debug\STM32_Test_Boot.elf" />
 				<Option object_output=".\_OUT_\Debug\" />
 				<Option type="0" />
 				<Option compiler="armgcc_eb" />
@@ -52,17 +52,19 @@
 		<Device>
 			<Add option="$device=cortex-m4" />
 			<Add option="$fpu=fpv4-sp-d16" />
-			<Add option="$lscript=./stm32f407vg_flash.ld" />
+			<Add option="$lscript=stm32f407vg_flash - Boot.ld" />
 			<Add option="$stack=0x0100" />
 			<Add option="$heap=0x0000" />
 		</Device>
 		<Compiler>
 			<Add option="-mfloat-abi=hard" />
+			<Add option="-O0" />
 			<Add option="-DARM_MATH_CM4" />
 			<Add option="-D__FPU_USED" />
 			<Add option="-DSTM32F407VG" />
 			<Add option="-DSTM32F4XX" />
 			<Add option="-DUSE_STDPERIPH_DRIVER" />
+			<Add option="-DBOOTSTRAP" />
 			<Add option="-fno-strict-aliasing" />
 			<Add directory=".\cmsis" />
 			<Add directory=".\inc" />
@@ -71,10 +73,15 @@
 			<Add option="-eb_start_files" />
 			<Add option="-eb_lib=n" />
 		</Linker>
+		<Unit filename="_HEX_\Debug\STM32_Test_Boot.map" />
 		<Unit filename="inc\stm32f4xx.h" />
 		<Unit filename="inc\stm32f4xx_conf.h" />
 		<Unit filename="inc\system_stm32f4xx.h" />
-		<Unit filename="src\main.c">
+		<Unit filename="src\Board.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src\Board.h" />
+		<Unit filename="src\main - Bootstrap.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src\startup_stm32f4xx.S">
@@ -83,10 +90,19 @@
 		<Unit filename="src\system_stm32f4xx.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="stm32f407vg_flash - Boot.ld" />
 		<Unit filename="..\src\DriverInterface.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="..\src\DriverInterface.h" />
+		<Unit filename="..\src\clock\STM32F407\clock.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\src\clock\STM32F407\clock.h" />
+		<Unit filename="..\src\clock\clock_DriverInterface.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="..\src\clock\clock_DriverInterface.h" />
 		<Unit filename="..\src\gpio\STM32F407\gpio.c">
 			<Option compilerVar="CC" />
 		</Unit>

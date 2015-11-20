@@ -14,15 +14,28 @@
 #include "DriverInterface.h"
 #include "Board.h"
 
+
+typedef  void (*pFunction)(void);
+
+
 Peripheral_Descriptor_t gpio;
 
 int main(void)
 {
+   pFunction   Jump_To_Application;
+   uint32_t    JumpAddress;
+
+   //--- Jump to user application
+   JumpAddress = *(__IO uint32_t*) (0x08020000 + 4);
+   Jump_To_Application = (pFunction) JumpAddress;
+ //  Jump_To_Application();
+   DRIVER_LoadAll();
+
    GPIO_InitTypeDef gpioConf;
 
    BOARD_ConfAll();
 
-   DRIVER_LoadAll();
+ //  DRIVER_LoadAll();
 
    gpio = DRIVER_open("GPIOD",0);
 
@@ -38,5 +51,6 @@ int main(void)
       DRIVER_ioctl(gpio,GPIO_CLEAR_PIN,GPIO_PIN_15);
    }
 
-   return 0;
+
+    return 0;
 }

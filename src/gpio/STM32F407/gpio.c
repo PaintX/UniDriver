@@ -53,6 +53,16 @@ void HAL_GPIO_Init(GPIO_TypeDef  *GPIOx, GPIO_InitTypeDef *GPIO_Init)
   uint32_t iocurrent = 0x00;
   uint32_t temp = 0x00;
 
+   __HAL_RCC_GPIOA_CLK_ENABLE();
+   __HAL_RCC_GPIOB_CLK_ENABLE();
+   __HAL_RCC_GPIOC_CLK_ENABLE();
+   __HAL_RCC_GPIOD_CLK_ENABLE();
+   __HAL_RCC_GPIOE_CLK_ENABLE();
+   __HAL_RCC_GPIOF_CLK_ENABLE();
+   __HAL_RCC_GPIOG_CLK_ENABLE();
+   __HAL_RCC_GPIOH_CLK_ENABLE();
+   __HAL_RCC_GPIOI_CLK_ENABLE();
+
   /* Configure the port pins */
   for(position = 0; position < GPIO_NUMBER; position++)
   {
@@ -111,7 +121,7 @@ void HAL_GPIO_Init(GPIO_TypeDef  *GPIOx, GPIO_InitTypeDef *GPIO_Init)
         Peripheral_Descriptor_t rcc;
         rcc = DRIVER_open("RCC",0);
 
-        FreeRTOS_ioctl(rcc,SYSCFG_CLK,true);
+        DRIVER_ioctl(rcc,SYSCFG_CLK,true);
 //        __HAL_RCC_SYSCFG_CLK_ENABLE();
 
         temp = SYSCFG->EXTICR[position >> 2];
@@ -159,7 +169,7 @@ void HAL_GPIO_Init(GPIO_TypeDef  *GPIOx, GPIO_InitTypeDef *GPIO_Init)
 
 void HAL_GPIO_WritePin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin, bool PinState)
 {
-    __HAL_RCC_GPIOD_CLK_ENABLE();
+
     if(PinState)
     {
         GPIOx->BSRR = GPIO_Pin;

@@ -479,6 +479,18 @@ typedef struct
                                                ((__GPIOx__) == (GPIOI))? 8U : 9U)
 
 
+
+
+#define  __HAL_GPIOA_DRIVER()                   { .pxDevice.pcPath = "GPIOA", .pxDevice.pvBaseAddress = GPIOA, .write = _Write, .read = _Read, .ioctl = _Ioctl, }
+#define  __HAL_GPIOB_DRIVER()                   { .pxDevice.pcPath = "GPIOB", .pxDevice.pvBaseAddress = GPIOB, .write = _Write, .read = _Read, .ioctl = _Ioctl, }
+#define  __HAL_GPIOC_DRIVER()                   { .pxDevice.pcPath = "GPIOC", .pxDevice.pvBaseAddress = GPIOC, .write = _Write, .read = _Read, .ioctl = _Ioctl, }
+#define  __HAL_GPIOD_DRIVER()                   { .pxDevice.pcPath = "GPIOD", .pxDevice.pvBaseAddress = GPIOD, .write = _Write, .read = _Read, .ioctl = _Ioctl, }
+#define  __HAL_GPIOE_DRIVER()                   { .pxDevice.pcPath = "GPIOE", .pxDevice.pvBaseAddress = GPIOE, .write = _Write, .read = _Read, .ioctl = _Ioctl, }
+#define  __HAL_GPIOF_DRIVER()                   { .pxDevice.pcPath = "GPIOF", .pxDevice.pvBaseAddress = GPIOF, .write = _Write, .read = _Read, .ioctl = _Ioctl, }
+#define  __HAL_GPIOG_DRIVER()                   { .pxDevice.pcPath = "GPIOG", .pxDevice.pvBaseAddress = GPIOG, .write = _Write, .read = _Read, .ioctl = _Ioctl, }
+#define  __HAL_GPIOH_DRIVER()                   { .pxDevice.pcPath = "GPIOH", .pxDevice.pvBaseAddress = GPIOH, .write = _Write, .read = _Read, .ioctl = _Ioctl, }
+#define  __HAL_GPIOI_DRIVER()                   { .pxDevice.pcPath = "GPIOI", .pxDevice.pvBaseAddress = GPIOI, .write = _Write, .read = _Read, .ioctl = _Ioctl, }
+
 //-----------------------------------------------------------------------------
 // Variables et Fonctions partagees
 //-----------------------------------------------------------------------------

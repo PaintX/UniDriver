@@ -20,9 +20,8 @@
 #include <string.h>
 #include <stdbool.h>
 
-
-#include "gpio_DriverInterface.h"
-#include "clock_DriverInterface.h"
+   #include "gpio_DriverInterface.h"
+   #include "clock_DriverInterface.h"
 
 //-----------------------------------------------------------------------------
 // Constantes : defines et enums
@@ -130,9 +129,9 @@ Peripheral_Descriptor_t FreeRTOS_open( const int8_t *pcPath, const uint32_t ulFl
  * Macros for the functions that are really macros to keep the call depth down
  * and the efficiency up.
  */
-#define FreeRTOS_write( xPeripheral, pvBuffer, xBytes ) ( ( Peripheral_Control_t * ) xPeripheral )->write( ( ( Peripheral_Control_t * ) xPeripheral ), (void * const) ( pvBuffer ), ( xBytes ) )
-#define FreeRTOS_read( xPeripheral, pvBuffer, xBytes ) ( ( Peripheral_Control_t * ) xPeripheral )->read( ( ( Peripheral_Control_t * ) xPeripheral ), ( pvBuffer ), ( xBytes ) )
-#define FreeRTOS_ioctl( xPeripheral, ulRequest, pvValue ) ( ( Peripheral_Control_t * ) xPeripheral )->ioctl( ( ( Peripheral_Control_t * ) xPeripheral ), (uint32_t)( ulRequest ), (void *)( pvValue ) )
+#define DRIVER_write( xPeripheral, pvBuffer, xBytes ) ( ( Peripheral_Control_t * ) xPeripheral )->write( ( ( Peripheral_Control_t * ) xPeripheral ), (void * const) ( pvBuffer ), ( xBytes ) )
+#define DRIVER_read( xPeripheral, pvBuffer, xBytes ) ( ( Peripheral_Control_t * ) xPeripheral )->read( ( ( Peripheral_Control_t * ) xPeripheral ), ( pvBuffer ), ( xBytes ) )
+#define DRIVER_ioctl( xPeripheral, ulRequest, pvValue ) ( ( Peripheral_Control_t * ) xPeripheral )->ioctl( ( ( Peripheral_Control_t * ) xPeripheral ), (uint32_t)( ulRequest ), (void *)( pvValue ) )
 
 
 //-----------------------------------------------------------------------------

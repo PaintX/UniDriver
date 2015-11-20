@@ -4,8 +4,8 @@
 // HEADER       : Board.h
 //
 //=============================================================================
-#ifndef _CLOCK_DRIVER_INTERFACE_H
-#define _CLOCK_DRIVER_INTERFACE_H
+#ifndef _BOARD_H_
+#define _BOARD_H_
 
 //=============================================================================
 //--- DECLARATIONS
@@ -14,22 +14,29 @@
 //-----------------------------------------------------------------------------
 // Fichiers Inclus
 //-----------------------------------------------------------------------------
-#include "clock.h"
-
+#include <stdint.h>
+#include <stdbool.h>
+#include "stm32f4xx.h"
+#include "DriverInterface.h"
 
 //-----------------------------------------------------------------------------
 // Constantes : defines et enums
 //-----------------------------------------------------------------------------
+#define __HAL_FLASH_INSTRUCTION_CACHE_ENABLE()  (FLASH->ACR |= FLASH_ACR_ICEN)
+#define __HAL_FLASH_DATA_CACHE_ENABLE()         (FLASH->ACR |= FLASH_ACR_DCEN)
+#define __HAL_FLASH_PREFETCH_BUFFER_ENABLE()    (FLASH->ACR |= FLASH_ACR_PRFTEN)
+//=============================================================================
+//=====     Definitions generiques
+//=============================================================================
+
+
 
 //-----------------------------------------------------------------------------
 // Variables et Fonctions partagees
 //-----------------------------------------------------------------------------
 
-//---------- Variables ----------
-void CLOCK_LoadDriver(void);
+//---------- Fonctions ----------
+void BOARD_ConfAll(void);
+void BOARD_ShutDown(void);
 
-#endif
-
-
-
-
+#endif		//--- _BOARD_H_

@@ -1,0 +1,100 @@
+# depslib dependency file v1.0
+1448034235 source:c:\_kimo_\unidriver\stm32_test\src\board.c
+	"Board.h"
+
+1448033961 c:\_kimo_\unidriver\stm32_test\src\board.h
+	<stdint.h>
+	<stdbool.h>
+	"stm32f4xx.h"
+	"DriverInterface.h"
+
+1448034171 c:\_kimo_\unidriver\stm32_test\inc\stm32f4xx.h
+	"core_cm4.h"
+	"system_stm32f4xx.h"
+	<stdint.h>
+	"stm32f4xx_conf.h"
+
+1447948411 c:\_kimo_\unidriver\stm32_test\inc\system_stm32f4xx.h
+
+1448027359 c:\_kimo_\unidriver\stm32_test\inc\stm32f4xx_conf.h
+	"stm32f4xx_can.h"
+	"stm32f4xx_crc.h"
+	"stm32f4xx_cryp.h"
+	"stm32f4xx_dac.h"
+	"stm32f4xx_dbgmcu.h"
+	"stm32f4xx_dcmi.h"
+	"stm32f4xx_dma.h"
+	"stm32f4xx_exti.h"
+	"stm32f4xx_flash.h"
+	"stm32f4xx_fsmc.h"
+	"stm32f4xx_hash.h"
+	"stm32f4xx_gpio.h"
+	"stm32f4xx_i2c.h"
+	"stm32f4xx_iwdg.h"
+	"stm32f4xx_pwr.h"
+	"stm32f4xx_rcc.h"
+	"stm32f4xx_rng.h"
+	"stm32f4xx_rtc.h"
+	"stm32f4xx_sdio.h"
+	"stm32f4xx_spi.h"
+	"stm32f4xx_syscfg.h"
+	"stm32f4xx_tim.h"
+	"stm32f4xx_usart.h"
+	"stm32f4xx_wwdg.h"
+
+1447948411 source:c:\_kimo_\unidriver\stm32_test\src\startup_stm32f4xx.s
+
+1447948560 source:c:\_kimo_\unidriver\stm32_test\src\system_stm32f4xx.c
+	"stm32f4xx.h"
+
+1448034109 source:c:\_kimo_\unidriver\src\clock\stm32f407\clock.c
+	"clock.h"
+
+1448034109 c:\_kimo_\unidriver\src\clock\stm32f407\clock.h
+	<stdint.h>
+	"stm32f4xx.h"
+	"DriverInterface.h"
+
+1448015667 c:\_kimo_\unidriver\src\driverinterface.h
+	<stdlib.h>
+	<stddef.h>
+	<stdint.h>
+	<string.h>
+	<stdbool.h>
+	"gpio_DriverInterface.h"
+	"clock_DriverInterface.h"
+
+1448009424 c:\_kimo_\unidriver\src\gpio\gpio_driverinterface.h
+	"gpio.h"
+
+1448024611 c:\_kimo_\unidriver\src\gpio\stm32f407\gpio.h
+	<stdint.h>
+	"stm32f4xx.h"
+	"DriverInterface.h"
+
+1448019181 c:\_kimo_\unidriver\src\clock\clock_driverinterface.h
+	"clock.h"
+
+1448025001 source:c:\_kimo_\unidriver\src\clock\clock_driverinterface.c
+	"DriverInterface.h"
+	"clock.h"
+
+1448009701 source:c:\_kimo_\unidriver\src\gpio\stm32f407\gpio.c
+	"gpio.h"
+	"clock.h"
+
+1448024617 source:c:\_kimo_\unidriver\src\gpio\gpio_driverinterface.c
+	"DriverInterface.h"
+	"gpio.h"
+
+1448024629 source:c:\_kimo_\unidriver\stm32_test\src\main.c
+	"DriverInterface.h"
+	"Board.h"
+
+1448023181 source:c:\_kimo_\unidriver\src\driverinterface.c
+	"DriverInterface.h"
+
+1448028460 source:c:\_kimo_\unidriver\stm32_test\src\main - bootstrap.c
+	"DriverInterface.h"
+	"Board.h"
+

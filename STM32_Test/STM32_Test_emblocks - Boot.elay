@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<EmBlocks_layout_file>
+	<ActiveTarget name="Debug" />
+	<File name="_HEX_\Debug\STM32_Test_Boot.map" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="90690" topLine="994" />
+		</Cursor>
+	</File>
+	<File name="inc\stm32f4xx.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="555027" topLine="7801" />
+		</Cursor>
+	</File>
+	<File name="inc\stm32f4xx_conf.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2420" topLine="35" />
+		</Cursor>
+	</File>
+	<File name="src\Board.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1718" topLine="25" />
+		</Cursor>
+	</File>
+	<File name="src\main - Bootstrap.c" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="943" topLine="15" />
+		</Cursor>
+	</File>
+	<File name="stm32f407vg_flash - Boot.ld" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2764" topLine="21" />
+		</Cursor>
+	</File>
+	<File name="..\src\DriverInterface.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2897" topLine="56" />
+		</Cursor>
+	</File>
+	<File name="..\src\DriverInterface.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3555" topLine="50" />
+		</Cursor>
+	</File>
+	<File name="..\src\clock\STM32F407\clock.c" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3232" topLine="64" />
+		</Cursor>
+	</File>
+	<File name="..\src\clock\STM32F407\clock.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="4225" topLine="66" />
+		</Cursor>
+	</File>
+	<File name="..\src\clock\clock_DriverInterface.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2029" topLine="27" />
+		</Cursor>
+	</File>
+	<File name="..\src\gpio\STM32F407\gpio.c" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2013" topLine="60" />
+		</Cursor>
+	</File>
+	<File name="..\src\gpio\gpio_DriverInterface.c" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3624" topLine="71" />
+		</Cursor>
+	</File>
+</EmBlocks_layout_file>

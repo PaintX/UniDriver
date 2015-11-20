@@ -42,6 +42,7 @@
 
 #define     GPIO_SET_CONFIG         (uint32_t)0x00000001
 #define     GPIO_SET_PIN            (uint32_t)0x00000002
+#define     GPIO_CLEAR_PIN          (uint32_t)0x00000004
 
 void GPIO_LoadDriver(void);
 

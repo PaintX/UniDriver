@@ -38,6 +38,26 @@
 
 #include "gpio.h"
 
+static size_t _Write( Peripheral_Descriptor_t const pxPeripheral, const void *pvBuffer, const size_t xBytes );
+static size_t _Read( Peripheral_Descriptor_t const pxPeripheral, void * const pvBuffer, const size_t xBytes );
+static int _Ioctl( Peripheral_Descriptor_t const pxPeripheral, uint32_t ulRequest, void *pvValue );
+
+#ifdef BOOTSTRAP
+ __attribute__((section (".DRIVER.clock")))
+ #endif
+ const Peripheral_Control_t gpioDriver[]  =
+{
+   __HAL_GPIOA_DRIVER(),
+   __HAL_GPIOB_DRIVER(),
+   __HAL_GPIOC_DRIVER(),
+   __HAL_GPIOD_DRIVER(),
+   __HAL_GPIOE_DRIVER(),
+   __HAL_GPIOF_DRIVER(),
+   __HAL_GPIOG_DRIVER(),
+   __HAL_GPIOH_DRIVER(),
+   __HAL_GPIOI_DRIVER(),
+};
+
 static size_t _Write( Peripheral_Descriptor_t const pxPeripheral, const void *pvBuffer, const size_t xBytes )
 {
    return xBytes;
@@ -50,42 +70,41 @@ static size_t _Read( Peripheral_Descriptor_t const pxPeripheral, void * const pv
 
 static int _Ioctl( Peripheral_Descriptor_t const pxPeripheral, uint32_t ulRequest, void *pvValue )
 {
+   Peripheral_Control_t * p = pxPeripheral;
+   GPIO_TypeDef * GPIOx = (GPIO_TypeDef*)p->pxDevice.pvBaseAddress;
 
+   switch ( ulRequest )
+   {
+      case ( GPIO_SET_CONFIG ):
+      {
+         GPIO_InitTypeDef *GPIO_Init = (GPIO_InitTypeDef *)pvValue;
+         HAL_GPIO_Init(GPIOx,GPIO_Init);
+         break;
+      }
+      case ( GPIO_SET_PIN ):
+      {
+         HAL_GPIO_WritePin(GPIOx,(uint16_t)pvValue,true);
+         break;
+      }
+      case ( GPIO_CLEAR_PIN ):
+      {
+         HAL_GPIO_WritePin(GPIOx,(uint16_t)pvValue,false);
+         break;
+      }
+   }
 
-    Peripheral_Control_t * p = pxPeripheral;
-
-    GPIO_TypeDef * GPIOx = (GPIO_TypeDef*)p->pxDevice.pvBaseAddress;
-
-    switch ( ulRequest )
-    {
-        case ( GPIO_SET_CONFIG ):
-        {
-            GPIO_InitTypeDef *GPIO_Init = (GPIO_InitTypeDef *)pvValue;
-            HAL_GPIO_Init(GPIOx,GPIO_Init);
-            break;
-        }
-        case ( GPIO_SET_PIN ):
-        {
-            uint16_t pin = pvValue;
-            HAL_GPIO_WritePin(GPIOx,pin,true);
-            break;
-        }
-    }
-
-    return 0;
+   return 0;
 }
 
 void GPIO_LoadDriver(void)
 {
-    Peripheral_Control_t dev;
+   uint16_t i;
+   uint16_t nbPeriph = sizeof(gpioDriver)/sizeof(Peripheral_Control_t);
 
-    dev.pxDevice.pcPath = "GPIOD";
-    dev.pxDevice.pvBaseAddress = GPIOD;
-    dev.write = _Write;
-    dev.read = _Read;
-    dev.ioctl = _Ioctl;
-
-    DRIVER_Add(&dev);
+   for ( i = 0 ; i < nbPeriph ; i++ )
+   {
+      DRIVER_Add(&gpioDriver[i]);
+   }
 }
 
 
